@@ -1,0 +1,28 @@
+@import '../../assets/mixin/mixin';
+@import '../../assets/variables/variables';
+
+.personInfo {
+    @include flexbox(row, nowrap, space-between, unset);
+    padding: 10px 5px;
+    border-bottom: 1px solid gray;
+    transition: all .3s linear;
+}
+.personInfo:hover {
+    background-color: $activeColor;
+    cursor: pointer;
+}
+.content {
+    flex-grow: 1;
+    font-family: sans-serif;
+    margin-left: 15px;
+    padding: 5px;
+}
+.person-name, .person-message {
+    display: block;
+}
+.person-name {
+    margin-bottom: 3px;
+}
+.message-date {
+    min-width: 92px;
+}

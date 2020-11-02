@@ -1,0 +1,12 @@
+<!-- <div class="container"> -->
+    <div class="personInfo" *ngFor="let person of phoneBook | search: searchPerson" (click)="choosePerson(person.id)">
+        <app-avatar [photoPath]="person.photo"></app-avatar>
+        <div class="content">
+            <span class="person-name"><b>{{ person.firstName }} {{ person.lastName }}</b></span>
+            <span class="person-message">{{ person.messages[person.messages.length - 1].message }}</span>
+        </div>
+        <div class="message-date">
+            <span class="date">{{ person.messages[person.messages.length - 1].date | date }}</span>
+        </div>
+    </div>
+<!-- </div> -->

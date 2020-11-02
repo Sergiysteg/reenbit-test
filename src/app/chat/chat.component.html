@@ -1,0 +1,66 @@
+<div class="container m-auto">
+    <main class="main">
+        <section class="list">
+            <div class="list__profile">
+                <div class="avatar-wrapper">
+                    <div class="avatar">
+                        <img class="avatar__photo" src="../../assets/images/man-icon.png" alt="avatar">
+                    </div>
+                    <div class="check">
+                        <span class="icon-check check-icon"></span>
+                    </div>
+                </div>
+                <div class="list__search">
+                    <input class="list__search-field" type="text" placeholder="Search or start new chat" [(ngModel)]="search">
+                    <span class="icon-search search-icon"></span>
+                </div>
+            </div>
+            <div class="list__book">
+                <div class="list__change-chat">
+                    <span><a class="chats" [routerLink]="[ '/persons' ]">Chat</a></span>
+                </div>
+                <div class="list__persons">
+                    <!-- <router-outlet></router-outlet> -->
+                    <app-persons [searchPerson]="search"></app-persons>
+                </div>
+            </div>
+        </section>
+        <section class="chat">
+            <div class="chat__person">
+                <app-avatar [photoPath]="currentPerson.photo"></app-avatar>
+                <h3 class="chat__name">{{ currentPerson.firstName }} {{ currentPerson.lastName }}</h3>
+            </div>
+            <div class="chat__text" #chat>
+                <div class="chat__text-wrapper" *ngFor="let message of currentPerson.messages">
+                    <div class="friend-message-wrapper" *ngIf="message.role === 'friend'">
+                        <div class="friend-message">
+                            <div class="friend-message__image-box">
+                                <img class="friend-message__image" [src]="currentPerson.photo" alt="photo">
+                            </div>
+                            <div class="friend-message__message-box">
+                                <p class="friend-message__message">{{ message.message}}</p>
+                            </div>
+                        </div>
+                        <div class="friend-message__time-box">
+                            <span class="friend-message__time">{{ message.date | date:'M/d/yy h:mm a' }}</span>
+                        </div>
+                    </div>
+                    <div class="user-message-wrapper" *ngIf="message.role === 'user'">
+                        <div class="user-message__box">
+                            <p class="user-message">{{ message.message }}</p>
+                        </div>
+                        <div class="user-time__box">
+                            <span class="user-time">{{ message.date | date:'M/d/yy h:mm a' }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat__input">
+                <div class="chat__input-wrapper">
+                    <input class="chat__input-field" type="text" placeholder="Type your message" [(ngModel)]="text">
+                    <span class="icon-paper-plane" (click)="sendMessage()"></span>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
