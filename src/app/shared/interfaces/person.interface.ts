@@ -6,4 +6,5 @@ export interface IPerson {
     lastName: string;
     messages: Array<IMessage>;
     photo: string;
+    unreadStatus: boolean;
 }

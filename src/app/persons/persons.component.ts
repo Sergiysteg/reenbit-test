@@ -15,13 +15,20 @@ export class PersonsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPersons();
+    this.checkCurrentUser();
   }
 
-  getPersons(): void {
+  private getPersons(): void {
     this.phoneBook = this.personService.phoneBook;
   }
 
   choosePerson(id: number): void {
     this.personService.changeCurrentPerson(id);
+  }
+
+  private checkCurrentUser(): void {
+    this.personService.watchPerson.subscribe(() => {
+      this.getPersons();
+    });
   }
 }

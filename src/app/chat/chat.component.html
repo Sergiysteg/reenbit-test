@@ -32,7 +32,7 @@
             </div>
             <div class="chat__text" #chat>
                 <div class="chat__text-wrapper" *ngFor="let message of currentPerson.messages">
-                    <div class="friend-message-wrapper" *ngIf="message.role === 'friend'">
+                    <div class="friend-message-wrapper item" *ngIf="message.role === 'friend'">
                         <div class="friend-message">
                             <div class="friend-message__image-box">
                                 <img class="friend-message__image" [src]="currentPerson.photo" alt="photo">
@@ -45,7 +45,7 @@
                             <span class="friend-message__time">{{ message.date | date:'M/d/yy h:mm a' }}</span>
                         </div>
                     </div>
-                    <div class="user-message-wrapper" *ngIf="message.role === 'user'">
+                    <div class="user-message-wrapper item" *ngIf="message.role === 'user'">
                         <div class="user-message__box">
                             <p class="user-message">{{ message.message }}</p>
                         </div>

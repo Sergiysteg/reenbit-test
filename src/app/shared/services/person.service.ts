@@ -43,7 +43,8 @@ export class PersonService {
           date: new Date('October 22 2020, 10:50')
         },
       ],
-      photo: 'https://img.favpng.com/7/12/14/silhouette-avatar-computer-icons-png-favpng-QraegZsLrXk3JinMGcXgweMB4.jpg'
+      photo: 'https://img.favpng.com/7/12/14/silhouette-avatar-computer-icons-png-favpng-QraegZsLrXk3JinMGcXgweMB4.jpg',
+      unreadStatus: false
     },
     { id: 2,
       firstName: 'Oksana',
@@ -75,9 +76,10 @@ export class PersonService {
           date: new Date('October 25 2020, 11:50')
         },
       ],
-      photo: 'https://img.favpng.com/5/17/10/female-diana-prince-organization-png-favpng-309L75Lp0a4fc4cKSYNhXstAt.jpg'
+      photo: 'https://img.favpng.com/5/17/10/female-diana-prince-organization-png-favpng-309L75Lp0a4fc4cKSYNhXstAt.jpg',
+      unreadStatus: false
     },
-    { id: 4,
+    { id: 3,
       firstName: 'Ivan',
       lastName: 'Ivaniv',
       messages: [
@@ -103,13 +105,14 @@ export class PersonService {
         },
         { id: 25,
           message: 'Some other text',
-          role: "user",
+          role: "friend",
           date: new Date('October 26 2020, 10:50')
         },
       ],
-      photo: 'https://img.favpng.com/7/12/14/silhouette-avatar-computer-icons-png-favpng-QraegZsLrXk3JinMGcXgweMB4.jpg'
+      photo: 'https://img.favpng.com/7/12/14/silhouette-avatar-computer-icons-png-favpng-QraegZsLrXk3JinMGcXgweMB4.jpg',
+      unreadStatus: true
     },
-    { id: 3,
+    { id: 4,
       firstName: 'Maria',
       lastName: 'Marianiv',
       messages: [
@@ -129,18 +132,27 @@ export class PersonService {
           date: new Date()
         },
         { id: 19,
-          message: 'Is this the end?',
+          message: 'Ask me something.',
           role: "friend",
           date: new Date('November 1 2020, 3:00')
-        },
-        { id: 20,
-          message: 'Yes my dear friend',
-          role: "user",
-          date: new Date('November 1 2020, 3:02')
         }
       ],
-      photo: 'https://img.favpng.com/5/17/10/female-diana-prince-organization-png-favpng-309L75Lp0a4fc4cKSYNhXstAt.jpg'
-    }
+      photo: 'https://img.favpng.com/5/17/10/female-diana-prince-organization-png-favpng-309L75Lp0a4fc4cKSYNhXstAt.jpg',
+      unreadStatus: true
+    },
+    { id: 5,
+      firstName: 'Anaa',
+      lastName: 'Anovych',
+      messages: [
+        { id: 19,
+          message: 'Is this the end?',
+          role: "friend",
+          date: new Date('November 1 2020, 5:00')
+        }
+      ],
+      photo: 'https://img.favpng.com/5/17/10/female-diana-prince-organization-png-favpng-309L75Lp0a4fc4cKSYNhXstAt.jpg',
+      unreadStatus: false
+    },
   ];
   currentPerson: IPerson = this.phoneBook[0];
   constructor(private afStorage: AngularFireStorage,
@@ -159,12 +171,36 @@ export class PersonService {
     this.watchPerson.next('something changes');
   }
 
-  getImages(): void {
-    
-  }
-
   changeCurrentPerson(id: number): void {
     this.currentPerson = this.phoneBook.find(person => person.id === id);
+    this.currentPerson.unreadStatus = false;
     this.watchPerson.next('something changes');
+  }
+
+  viewJoke(data: any, id: number): void {
+    setTimeout(() => {
+      const chuckAnswer = {
+        id: 10,
+        message: data.value,
+        role: 'friend',
+        date: new Date()
+      };
+      const index = this.phoneBook.findIndex(user => user.id === id);
+      this.phoneBook[index].messages.push(chuckAnswer);
+      this.checkCurrentChatUser(id);
+    }, 5000)
+  }
+
+  checkCurrentChatUser(id: number): void {
+    if(this.currentPerson.id !== id){
+      this.phoneBook.map(person => {
+        if(person.id === id){
+          person.unreadStatus = true;
+        }
+      })
+      this.watchPerson.next('something changes');
+    } else {
+      this.watchPerson.next('something changes');
+    }
   }
 }

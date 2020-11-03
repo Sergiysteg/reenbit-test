@@ -5,5 +5,6 @@ export class Person implements IPerson {
                 public firstName: string,
                 public lastName: string,
                 public messages: Array<IMessage>,
-                public photo: string){}
+                public photo: string,
+                public unreadStatus: boolean){}
 }

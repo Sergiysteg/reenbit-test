@@ -8,7 +8,7 @@
     transition: all .3s linear;
 }
 .personInfo:hover {
-    background-color: $activeColor;
+    background-color: lightblue;
     cursor: pointer;
 }
 .content {
@@ -25,4 +25,7 @@
 }
 .message-date {
     min-width: 92px;
+}
+.unread {
+    background-color: $activeColor;
 }
